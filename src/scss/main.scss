@@ -1,5 +1,39 @@
 /**
 * ======================================================
+* VARIABLES
+* ======================================================
+*/
+$base: #389ed9;
+:root {
+    // base
+    --base: #{$base};
+    --base-light: #{lighten($base, 20%)};
+    --base-200: #{darken($base, 20%)};
+
+    // device
+    --device-radius: 42px;
+    --device-color: var(--base);
+    
+    // chat
+    --top: var(--base);
+
+    --chat-bg: hsl(0, 0%, 92%);
+    --chat-color: #444;
+    --chat-item-hover-bg: var(--base);
+    --chat-item-hover-color: #fff;
+    
+}
+
+$watch: 500px;
+
+@mixin watchOnly () {
+    @media screen and (max-width: $watch), screen and (max-height: 550px) {
+        @content;
+    }
+}
+
+/**
+* ======================================================
 * BASE STYLES
 * ======================================================
 */
@@ -7,8 +41,21 @@ body {
     margin: 0;
     font-family: 'Lato', sans-serif;
     font-size: 14px;
-    /* background:linear-gradient(0, #0065ff, #e0ecff); */
-    background: #fff;
+    background:
+    linear-gradient(
+        0,
+        var(--base) 16%,
+        var(--base-200) 27%
+    );
+
+    @include watchOnly() {
+        background:
+            radial-gradient(
+                var(--base) 6%,
+                var(--base-200) 57%
+            );
+        filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.4));
+    }
 }
 
 * {
@@ -17,20 +64,6 @@ body {
 
 p {
     margin: 0;
-}
-
-/**
-* ======================================================
-* VARIABLES
-* ======================================================
-*/
-:root {
-    --base: #ff2121;
-    --chat-bg: hsl(0, 0%, 92%);
-    --chat-color: #444;
-    --chat-item-hover-bg: var(--base);
-    --chat-item-hover-color: #fff;
-    --phone-radius: 36px;
 }
 
 /**
@@ -45,6 +78,15 @@ p {
     height: 100vh;
     overflow: hidden;
     position: relative;
+
+    background-position: calc(50% - 5px) calc(50% - -6px);
+    background-size: 0;
+    background-repeat: no-repeat;
+    background-image: url(../images/watch-band-2.png);
+    
+    @include watchOnly() {
+        background-size: 186px;
+    }
 }
 
 /**
@@ -52,20 +94,69 @@ p {
 * PHONE
 * ======================================================
 */
-.PhoneBorder {
-    background: #389ed9;
-    border-radius: var(--phone-radius);
-    padding: 3px;
-    max-width: 300px;
-    box-shadow: inset 0px 0 2px 0 rgba(0,0,0,0.5);
-    width: 95%;
-    position: absolute;
-    box-shadow: 0 4px 11px 1px rgba(0, 0, 0, 0.3), 5px 11px 4px -8px rgba(0, 0, 0, 0.2);
+.DeviceContainer {
+    transition: max-width .5s, max-height .5s;
+    position: relative;
+    max-height: 610px;
+    max-width: 309px;
+    height: 100%;
+    width: 100%;
+
+    @include watchOnly () {
+        max-width: 209px;
+        max-height: 230px;
+    }
 }
-.Phone {
+.DeviceBorder {
+    margin: 3px;
+    background: var(--device-color);
+    border-radius: var(--device-radius);
+    padding: 5px 6px;
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: inset 0px 0 2px 0 rgba(0,0,0,0.5);
+    height: 100%;
+    box-shadow:
+    0 4px 11px 1px rgba(0,0,0,.3),
+    5px 11px 4px -8px rgba(0,0,0,.2),
+    inset 0 0 5px 3px rgba(0,0,0,.4),
+    inset 0 0 9px 7px rgba(0,0,0,.04);
+
+    @include watchOnly () {
+        margin-right: 12px;
+    }
+
+    &:before {
+        content: "";
+        background-image: url(../images/iphone11-scaled.jpg);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 309px;
+        height: 610px;
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &:before {
+        content: "";
+        background-image: url(../images/watch-scaled.png);
+        background-repeat: no-repeat;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 309px;
+        height: 610px;
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+.Device {
     background: #000;
-    border-radius: var(--phone-radius);
-    padding: 12px;
+    border-radius: var(--device-radius);
+    padding: 16px;
     box-shadow:
     inset 10px 0 2px -7px rgb(0, 0, 0, 0.8),
     inset 14px 0 2px -7px rgba(255, 255, 255, 0.44),
@@ -78,7 +169,11 @@ p {
     ;
     position: relative;
     overflow: hidden;
+    height: 100%;
+
     &__notch {
+        transition: height .3s;
+        pointer-events: none;
         position: absolute;
         left: 50%;
         top: 12px;
@@ -87,14 +182,19 @@ p {
         z-index: 3;
         transform: translateX(-50%);
         border-radius: 0 0 11px 11px;
+        overflow: hidden;
+        height: 21px;
+
+        @include watchOnly () {
+            height: 0;
+        }
     }
     &__screen {
         border-radius: 25px;
-        height: 80vh;
+        height: 100%;
         background: #fff;
         position: relative;
         overflow: hidden;
-        max-height: 602px;
     }
 }
 
@@ -104,18 +204,27 @@ p {
 * ======================================================
 */
 .App {
+    transition: all .3s;
     height: 100%;
+
+    @include watchOnly () {
+        &__topbar,
+        &__top {
+            display: none;
+        }
+    }
+
     &__topbar {
         height: 18px;
         background: rgba(0,0,0,0.4);
     }
     &__top {
         height: 60px;
-        background: red;
+        background: var(--top);
     }
     &__content {
         display: flex;
-        height: 510px;
+        height: 100%;
         overflow: hidden;
     }
     &__footer {
@@ -137,6 +246,10 @@ p {
     overflow-y: scroll;
     position: relative;
     z-index: 2;
+    @include watchOnly() {
+        display: none;
+    }
+
     &::-webkit-scrollbar {
         width: 4px;
         background-color: #F5F5F5;
@@ -169,6 +282,14 @@ p {
         overflow: hidden;
         display: flex;
         flex-direction: column;
+
+        @include watchOnly () {
+            padding: 5px;
+            position: static;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+        }
     }
 }
 
@@ -248,5 +369,28 @@ p {
         box-shadow:
             0px 1px 1px 1px rgba(0,0,0,0.2),
             0px 0px 4px 1px rgba(0,0,0,0.1);
+
+        @include watchOnly () {
+            display: none;
+        }
+    }
+
+    &__sound{
+        background: var(--base);
+        border: none;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        margin: 10px auto 5px;
+        display: none;
+        color: #fff;
+        
+        > svg {
+            width: 15px;
+        }
+        
+        @include watchOnly() {
+            display: block;
+        }
     }
 }
