@@ -1,26 +1,20 @@
-# Toptal Leaders Landing Page
+This is a for-fun project I made to test some of the capabilities of CSS vars and skeuomorphism.
 
-Join the ranks of an ever-growing international community through hosting exclusive events, attending popular conferences and seminars, and crafting widely-shared quality content. The Toptal Leaders are the driving force in expanding the Toptal network by creating unique experiences and locating the most exceptional talent.
+The whole JS is just a toggle for a CSS var and a body class.
 
-## How to Run
+## Install
+First, you will need to install it. Open your terminal, navigate to the project folder and write the following command to install the dependencies.
+ 
+```
+npm install
+```
 
-### Before installing
-You will need to install npm and node to build the project
-https://www.npmjs.com/get-npm
+I used Webpack to bundle and process the SCSS, also to be able to write some ES6+. Sure, it was not a requirement but none of this project was! 
 
-### Running the project
-If you want to run the project locally use the start npm task
-```js
+## Running
+To run the project you just need to run
+
+```
 npm start
 ```
-
-### Build for production
-The build process will generate the artifacts for running standalone in a browser. This includes CSS, HTML, JS, and every image optimized.
-```js
-npm run build
-```
-
-## Development
-
-The project development assets can be found in the src folder. If no configuration is needed, you will find all the resources inside it.
-
+And if everything works out as expected you can now open http://localhost:8080 to modify, clone, or anything you want to do with it.
