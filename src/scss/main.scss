@@ -7,7 +7,6 @@ $base: #389ed9;
 :root {
   // base
   --base: #{$base};
-  --base-light: #{lighten($base, 20%)};
   --base-200: #{darken($base, 20%)};
 
   // device
@@ -26,9 +25,29 @@ $base: #389ed9;
 
 $watch: 500px;
 
+%scrollable {
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: #F5F5F5;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(255,255,255,0.5);
+  }
+}
+
 @mixin watchOnly () {
-  @media screen and (max-width: $watch), screen and (max-height: 550px) {
-    @content;
+  // @media screen and (max-width: $watch), screen and (max-height: 550px) {
+  //   @content;
+  // }
+
+  @at-root {
+    body.watch-mode & {
+      @content;
+    }
   }
 }
 
@@ -38,6 +57,7 @@ $watch: 500px;
 * ======================================================
 */
 body {
+  transition: background .5s;
   margin: 0;
   font-family: 'Lato', sans-serif;
   font-size: 14px;
@@ -48,7 +68,7 @@ body {
     var(--base-200) 27%
   );
 
-  @include watchOnly() {
+  &.watch-mode {
     background:
       radial-gradient(
         var(--base) 6%,
@@ -87,6 +107,33 @@ p {
   @include watchOnly() {
     background-size: 186px;
   }
+}
+
+.ModeSwitcher,
+.ColorSwitcher {
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  
+  &__btn {
+    border: 0;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background: rgba(0,0,0,0.2);
+    font-size: 25px;
+  }
+}
+
+.ModeSwitcher {
+  left: 0;
+}
+
+.ColorSwitcher {
+  right: 0;
 }
 
 /**
@@ -246,6 +293,8 @@ p {
   overflow-y: scroll;
   position: relative;
   z-index: 2;
+  @extend %scrollable;
+
   @include watchOnly() {
     display: none;
   }
@@ -282,6 +331,7 @@ p {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    @extend %scrollable;
 
     @include watchOnly () {
       padding: 5px;
