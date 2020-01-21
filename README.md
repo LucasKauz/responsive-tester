@@ -1,5 +1,8 @@
 This is a for-fun project I made to test some of the capabilities of CSS vars and skeuomorphism.
 
+## Visit it
+https://responsive-tester.lucaskauz.now.sh/
+
 The whole JS is just a toggle for a CSS var and a body class.
 
 ## Install
