@@ -12,12 +12,12 @@
   "author": "Lucas Marques <lucaskauz@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.7.5",
-    "@babel/plugin-transform-runtime": "^7.7.6",
-    "@babel/preset-env": "^7.7.6",
-    "@babel/runtime": "^7.8.3",
-    "babel-jest": "^24.9.0",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/runtime": "^7.9.2",
+    "babel-jest": "^25.4.0",
+    "babel-loader": "^8.1.0",
     "clean-css": "^4.2.1",
     "clean-css-loader": "^2.0.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -27,7 +27,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "imagemin-webpack-plugin": "^2.4.2",
-    "jest": "^24.9.0",
+    "jest": "^25.4.0",
     "mini-css-extract-plugin": "^0.8.0",
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-loader": "3.0.0",
@@ -42,7 +42,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.7.0",
+    "@babel/polyfill": "^7.8.7",
     "color": "^3.1.2"
   }
 }
