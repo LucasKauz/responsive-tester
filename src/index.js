@@ -1,9 +1,9 @@
 import Color from 'color'
+import hotjar from './hotjar';
 import './scss/main.scss'
 
 // Root
 const root = document.documentElement;
-
 
 class DeviceSwitcher {
   
@@ -21,6 +21,11 @@ class DeviceSwitcher {
 }
 
 window.addEventListener('DOMContentLoaded', function () {
+  // hotjar is just a test
+  if (window.location.hash === '#hotjar') {
+    hotjar()
+  }
+
   const deviceSwitcher = new DeviceSwitcher(document.body)
 
   const colorBtns = [...document.getElementsByClassName('ColorSwitcher__btn')]
